@@ -2,8 +2,10 @@ services:
   photobook:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ConnectionStrings__SqlConnection=Server=photobook.db;Database=photobook_db;User Id=sa;Password=Taggia42!
+      - ASPNETCORE_URLS=https://*:443;http://*:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=pM4342015!
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ConnectionStrings__SqlConnection=Server=photobook.db;Database=photobook_db;uid=sa;Password=Taggia42!;TrustServerCertificate=true
       - ConnectionStrings__AzureStorageConnection=${STORAGEACCOUNTCONNECTION}
       - AppSettings__ContainerName=attachments
       - AppSettings__CognitiveServicesKey=${COGNITIVESERVICESKEY}
@@ -11,9 +13,9 @@ services:
       - AppSettings__OtelEndpoint=http://otel:4317
     ports:
       - "8081:80"
-      - "44328:443"
+      - "7443:443"
     volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ~/.aspnet/https:/https:ro
 
   db:
     ports:
